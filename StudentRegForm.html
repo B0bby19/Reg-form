@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Form Validation</title>
+  </head>
+  <body>
+    <link rel="stylesheet" href="reg.css">
+    <div class="From">
+    <form onsubmit="return validate_form()">
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" /><br /><br />
+
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" /><br /><br />
+
+      <label for="phone">Phone:</label>
+      <input type="text" id="phone" name="phone" /><br /><br />
+
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" /><br /><br />
+
+      <label for="confirm_password">Confirm Password:</label>
+      <input type="password" id="confirm_password" name="confirm_password" /><br /><br />
+
+      <input type="submit" value="Submit" />
+    </form>
+  </div>
+    <script type="text/javascript">
+      function validate_form() {
+        var namePattern = /^([A-Za-z]{3,30}) +([A-Za-z ]{2,30})+$/;
+        var emailPattern = /^[A-Za-z]+@[A-Za-z]+\.[A-Za-z]{2,}$/;
+        var phonePattern = /^[0-9]{10}$/;
+        var passwordPattern = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/; // At least 8 characters, 1 letter and 1 number
+
+        var name = document.getElementById("name");
+        var email = document.getElementById("email");
+        var phone = document.getElementById("phone");
+        var password = document.getElementById("password");
+        var confirmPassword = document.getElementById("confirm_password");
+        var valid = true;
+
+        // Clear previous error messages
+        var errorElements = document.querySelectorAll(".error");
+        for (var i = 0; i < errorElements.length; i++) {
+          errorElements[i].remove();
+        }
+
+        // Validate name
+        if (name.value == "") {
+          var nErrorMsg =
+            "<span class='error' style='color:red'>Name is required </span>";
+          name.insertAdjacentHTML("afterend", nErrorMsg);
+          valid = false;
+        } else if (!namePattern.test(name.value)) {
+          var nErrorMsg =
+            "<span class='error' style='color:red'>Enter a valid name (e.g., John Doe)</span>";
+          name.insertAdjacentHTML("afterend", nErrorMsg);
+          valid = false;
+        }
+
+        // Validate email
+        if (email.value == "") {
+          var nErrorMsg =
+            "<span class='error' style='color:red'>Email is required </span>";
+          email.insertAdjacentHTML("afterend", nErrorMsg);
+          valid = false;
+        } else if (!emailPattern.test(email.value)) {
+          var nErrorMsg =
+            "<span class='error' style='color:red'>Enter a valid email (e.g., example@gmail.com)</span>";
+          email.insertAdjacentHTML("afterend", nErrorMsg);
+          valid = false;
+        }
+
+        // Validate phone
+        if (phone.value == "") {
+          var nErrorMsg =
+            "<span class='error' style='color:red'>Phone number is required </span>";
+          phone.insertAdjacentHTML("afterend", nErrorMsg);
+          valid = false;
+        } else if (!phonePattern.test(phone.value)) {
+          var nErrorMsg =
+            "<span class='error' style='color:red'>Enter a valid phone number (example: 9844806982)</span>";
+          phone.insertAdjacentHTML("afterend", nErrorMsg);
+          valid = false;
+        }
+
+        // Validate password
+        if (password.value == "") {
+          var passErrorMsg =
+            "<span class='error' style='color:red'>Password is required</span>";
+          password.insertAdjacentHTML("afterend", passErrorMsg);
+          valid = false;
+        } else if (!passwordPattern.test(password.value)) {
+          var passErrorMsg =
+            "<span class='error' style='color:red'>Password must be at least 8 characters and contain 1 letter and 1 number</span>";
+          password.insertAdjacentHTML("afterend", passErrorMsg);
+          valid = false;
+        }
+
+        // Validate confirm password
+        if (confirmPassword.value == "") {
+          var confPassErrorMsg =
+            "<span class='error' style='color:red'>Please confirm your password</span>";
+          confirmPassword.insertAdjacentHTML("afterend", confPassErrorMsg);
+          valid = false;
+        } else if (password.value !== confirmPassword.value) {
+          var confPassErrorMsg =
+            "<span class='error' style='color:red'>Passwords do not match</span>";
+          confirmPassword.insertAdjacentHTML("afterend", confPassErrorMsg);
+          valid = false;
+        }
+
+        return valid;
+      }
+    </script>
+  </body>
+</html>
